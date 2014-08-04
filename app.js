@@ -98,30 +98,23 @@ io.sockets.on('connection', function (socket) {
   socket.on('disconnect', function () {
     active_connections--;
     io.sockets.emit('user:disconnect', active_connections);
-
+    
     delete clients[socket.username];
     for(var i in clients) {
       if(clients[i] == socket.username) {
         clients.splice(i, 1);
       }
     }
-
     socket.broadcast.emit('updateChat', socket.username, socket.username + " Has Disconnected!");
   });
 
   // EVENT: User stops drawing something
   socket.on('draw:progress', function (uid, co_ordinates) {
-    
     io.sockets.emit('draw:progress', uid, co_ordinates)
-
   });
 
   // EVENT: User stops drawing something
   socket.on('draw:end', function (uid, co_ordinates) {
-    
     io.sockets.emit('draw:end', uid, co_ordinates)
-
   });
-  
 });
-

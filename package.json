@@ -2,7 +2,7 @@
   "name": "snippetchat",
   "subdomain": "snippetchat",
   "scripts": {
-    "start": "server.js"
+    "start": "app.js"
   },
   "version": "0.0.0-14",
   "engines": {
