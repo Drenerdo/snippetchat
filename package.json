@@ -1,9 +1,12 @@
 {
   "name": "snippetchat",
-  "version": "0.0.1",
-  "private": true,
+  "subdomain": "snippetchat",
   "scripts": {
-    "start": "app.js"
+    "start": "server.js"
+  },
+  "version": "0.0.0-14",
+  "engines": {
+    "node": "0.6.x"
   },
   "dependencies": {
     "express": "*",
