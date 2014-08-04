@@ -1,17 +1,6 @@
-/**
- * Module dependencies.
- */
-
-/*
-var express = require('express'),
-  app = express(),
-  http = require('http'),
-  server = http.createServer(app),
-  socket = require('socket.io'),
-  io = socket.listen(server);
-*/
-
 var express = require("express");
+var routes = require('./routes');
+var user = require('./routes/user');
 var app = express();
 var socket = require('socket.io');
 var server = require('http').createServer(app).listen(process.env.PORT || 5000);
@@ -19,19 +8,6 @@ app.configure(function(){
   app.use(express.static(__dirname + '/'));
 });
 
-/**
- * A setting, just one
- */
-
-//var port = 3000;
-
-
-
-
-
-/** Below be dragons
- *
- */
 
 var pub = __dirname + '/public';
 app.use(app.router);
@@ -45,6 +21,14 @@ app.engine('.html', require('ejs').__express);
 
 app.configure(function(){
   app.use(express.static(__dirname + '/'));
+});
+
+
+// Routing
+app.get('/', function(req, res){
+  res.render('index', {
+    title: 'SnippetChat'
+  });
 });
 
 // SESSIONS
@@ -98,29 +82,22 @@ io.sockets.on('connection', function (socket) {
   socket.on('disconnect', function () {
     active_connections--;
     io.sockets.emit('user:disconnect', active_connections);
-
     delete clients[socket.username];
     for(var i in clients) {
       if(clients[i] == socket.username) {
         clients.splice(i, 1);
       }
     }
-
     socket.broadcast.emit('updateChat', socket.username, socket.username + " Has Disconnected!");
   });
 
   // EVENT: User stops drawing something
   socket.on('draw:progress', function (uid, co_ordinates) {
-
     io.sockets.emit('draw:progress', uid, co_ordinates)
-
   });
 
   // EVENT: User stops drawing something
   socket.on('draw:end', function (uid, co_ordinates) {
-
     io.sockets.emit('draw:end', uid, co_ordinates)
-
   });
-
 });

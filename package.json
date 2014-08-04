@@ -1,12 +1,9 @@
 {
-  "name": "orbas",
-  "subdomain": "orbas",
+  "name": "snippetchat",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
-    "start": "app.js"
-  },
-  "version": "0.0.0-14",
-  "engines": {
-    "node": "0.6.x"
+    "start": "server.js"
   },
   "dependencies": {
     "express": "*",
